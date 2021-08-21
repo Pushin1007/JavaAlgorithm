@@ -56,27 +56,27 @@ public class Main {
     //d) Ответ: Сложность алгоритма O(n) , количество итераций 10000 т.к. рекурсивный метод вызывается 10000раз
 
 
-    factorial(BigInteger.valueOf(10000));
-
-    public static BigInteger factorial (BigInteger n){
-        if (n.equals(BigInteger.ONE)) {
-            return n;
-        }
-        return n.multiply(factorial(n.subtract(BigInteger.valueOf(1))));
-    }
+//    factorial(BigInteger.valueOf(10000));
+//
+//    public static BigInteger factorial (BigInteger n){
+//        if (n.equals(BigInteger.ONE)) {
+//            return n;
+//        }
+//        return n.multiply(factorial(n.subtract(BigInteger.valueOf(1))));
+//    }
 
 
     //e)Ответ: Сложность алгоритма O(2^n) , количество итераций (Наверно, могу ошибаться...) 1125899906842624
-    fib(BigInteger.valueOf(50));
-
-    public static BigInteger fib(BigInteger n) {
-        if (n.equals(BigInteger.ONE)) {
-            return BigInteger.ZERO;
-        }
-        if (n.equals(BigInteger.TWO)) {
-            return BigInteger.ONE;
-        }
-        return fib(n.subtract(BigInteger.ONE)).add(fib(n.subtract(BigInteger.TWO)));
-    }
+//    fib(BigInteger.valueOf(50));
+//
+//    public static BigInteger fib(BigInteger n) {
+//        if (n.equals(BigInteger.ONE)) {
+//            return BigInteger.ZERO;
+//        }
+//        if (n.equals(BigInteger.TWO)) {
+//            return BigInteger.ONE;
+//        }
+//        return fib(n.subtract(BigInteger.ONE)).add(fib(n.subtract(BigInteger.TWO)));
+//    }
 
 }
