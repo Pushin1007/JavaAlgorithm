@@ -1,6 +1,6 @@
 package hw2;
 
-public class Notebook {
+public class Notebook { //класс ноутбука
     private int cost;
     private int memory;
     private String brand;
@@ -11,5 +11,20 @@ public class Notebook {
         this.brand = brand;
     }
 
+    public void printParam() { //метод печати ноутбуков
+        System.out.printf("Cost: %d $, Memory: %d Gb, Brand: %s \n", cost, memory, brand);
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public int getMemory() {
+        return memory;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
 
 }
