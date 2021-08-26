@@ -18,7 +18,7 @@ public class Main {
 
     public static void main(String[] args) {
         startTime();
-        Notebook[] arrayNotebook = ArrayNotebook.getArray(10000); //создаем массив ноутбуков
+        Notebook[] arrayNotebook = ArrayNotebook.getArray(5000); //создаем массив ноутбуков
         ArrayNotebook.printArray(arrayNotebook);
         System.out.print("Печать массива. ");
         endTime();
@@ -32,7 +32,7 @@ public class Main {
         ArrayNotebook.shuffleArray(arrayNotebook);
         startTime();
         SelectionSort.sort(arrayNotebook);
-//        ArrayNotebook.printArray(arrayNotebook);
+        ArrayNotebook.printArray(arrayNotebook);
         System.out.print("Cортировка Выбором. ");
         endTime();
 

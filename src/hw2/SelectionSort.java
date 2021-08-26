@@ -8,19 +8,12 @@ public class SelectionSort { // Класс сортировки выбором
             min = i;
 
             for (int j = i + 1; j < arr.length; j++) {
-                if (arr[j].getCost() < arr[min].getCost()) { //Вариант логики сравнения внутри цикла
+
+
+                if (arr[j].compareTo(arr[min]) < 0) { //Вариант в классе ноутбука реализовал интерфейс comparable, а в методе сортировки SelectionSort  использовал метод compare.
                     min = j;
                 }
-                if (arr[j].getCost() == arr[min].getCost()) {
-                    if (arr[j].getMemory() < arr[min].getMemory()) {
-                        min = j;
-                    }
-                    if (arr[j].getMemory() == arr[min].getMemory()) {
-                        if (ArrayNotebook.brandAwesomeness(arr[j].getBrand()) < ArrayNotebook.brandAwesomeness(arr[min].getBrand())) {
-                            min = j;
-                        }
-                    }
-                }
+
             }
             if (i == min) {
                 continue;
