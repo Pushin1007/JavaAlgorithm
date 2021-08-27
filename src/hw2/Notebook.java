@@ -1,6 +1,6 @@
 package hw2;
 
-public class Notebook implements Comparable{ //класс ноутбука
+public class Notebook implements Comparable { //класс ноутбука
     private int cost;
     private int memory;
     private String brand;
@@ -27,7 +27,24 @@ public class Notebook implements Comparable{ //класс ноутбука
         return brand;
     }
 
-
+    @Override
+    public int compareTo(Object o) { //в классе ноутбука реализовал интерфейс comparable, а в методе сортировки SelectionSort  использовал метод compare.
+        int result;
+        if (this.cost > ((Notebook) o).cost) {
+            return 1;
+        }
+        if (this.cost == ((Notebook) o).cost) {
+            if (this.memory > ((Notebook) o).memory) {
+                return 1;
+            }
+            if (this.memory == ((Notebook) o).memory) {
+                if (ArrayNotebook.brandAwesomeness(this.getBrand()) > ArrayNotebook.brandAwesomeness(((Notebook) o).getBrand())) {
+                    return 1;
+                }
+            }
+        }
+        return -1;
+    }
 
 }
 
