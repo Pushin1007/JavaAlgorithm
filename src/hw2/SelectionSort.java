@@ -9,9 +9,7 @@ public class SelectionSort { // Класс сортировки выбором
 
             for (int j = i + 1; j < arr.length; j++) {
 
-                if (arr[j].compareTo(arr[min]) < 0) { //Вариант в классе ноутбука реализовал интерфейс comparable, а в методе сортировки SelectionSort  использовал метод compare.
-                    min = j;
-                }
+
             }
             if (i == min) {
                 continue;
