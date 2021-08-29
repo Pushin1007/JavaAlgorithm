@@ -15,9 +15,7 @@ public class Main {
         System.out.println("add element: " + dequeList.insertRight(11));
         System.out.println("add element: " + dequeList.insertRight(11));
         System.out.println("add element: " + dequeList.insertLeft(1));
-        System.out.println("add element: " +  dequeList.insertRight(13));
-
-
+        System.out.println("add element: " +  dequeList.insertRight(9));
 
         dequeList.display();
 
