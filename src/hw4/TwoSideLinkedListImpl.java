@@ -51,16 +51,18 @@ public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements
         }
         Node<E> removedNode = lastElement;
         lastElement = removedNode.previous;
-        removedNode.previous = null;
+
+        removedNode.previous = null; //не могу обнулить сслылку последнего элемента
         size--;
 
         if (isEmpty()) {
             firstElement = null;
         }
         return getValue(removedNode);
+
     }
 
-//
+
     @Override
     public boolean remove(E value) {
         Node<E> current = firstElement;
@@ -95,18 +97,18 @@ public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements
     @Override
     public String toString() {
 
-        StringBuilder sb = new StringBuilder("Front -> [");
+        StringBuilder sb = new StringBuilder("[");
         Node<E> current = firstElement;
         while (current != null) {
             sb.append(current.item);
             if (current.next != null) {
-                sb.append(" <-> ");
+                sb.append(" -> ");
             }
 
             current = current.next;
         }
 
-        sb.append("] <- Rear");
+        sb.append("]");
         return sb.toString();
     }
 }

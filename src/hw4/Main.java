@@ -28,6 +28,7 @@ public class Main {
         dequeList.display();
 
 
+
         //ДОЛЖНО РАБОТАТЬ! Iterable - LinkedListIterator impl Iterator
 
 /*        for (Integer value : linkedList) {
