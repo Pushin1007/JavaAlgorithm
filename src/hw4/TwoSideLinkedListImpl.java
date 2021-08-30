@@ -1,6 +1,8 @@
 package hw4;
 
 
+import java.util.Iterator;
+
 public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements TwoSideLinkedList<E> {
 
     protected Node<E> lastElement;
@@ -26,6 +28,8 @@ public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements
         lastElement.next = newNode;
         lastElement = newNode;
         size++;
+
+
     }
 
     @Override
@@ -48,11 +52,13 @@ public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements
     public E removeLast() { // для Deque нужен метод. создаем
         if (isEmpty()) {
             return null;
+        } else {
+//            lastElement.previous.next = null;//не могу обнулить сслылку последнего узла на удаляемый узел
         }
         Node<E> removedNode = lastElement;
         lastElement = removedNode.previous;
 
-        removedNode.previous = null; //не могу обнулить сслылку последнего элемента
+        removedNode.previous = null;
         size--;
 
         if (isEmpty()) {
@@ -110,5 +116,41 @@ public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements
 
         sb.append("]");
         return sb.toString();
+    }
+
+    public class TwoSideLinkedListIterator<E> implements Iterable<E> {
+
+        TwoSideLinkedList<E> data;
+        private int size;
+
+        public TwoSideLinkedListIterator() {
+            this.data = data;
+            this.size = data.size();
+        }
+
+
+        @Override
+        public Iterator<E> iterator() {
+            Iterator<E> it = new Iterator<E>() {
+
+                Node<E> current = data.firstElement;
+
+                @Override
+                public boolean hasNext() {
+                    return current.next!= null;
+                }
+
+                @Override
+                public E next() {
+                    return getValue(current.next);
+                }
+
+                @Override
+                public void remove() {
+                    throw new UnsupportedOperationException();
+                }
+            };
+            return it;
+        }
     }
 }
