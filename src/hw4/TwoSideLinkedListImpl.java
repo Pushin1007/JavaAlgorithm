@@ -115,22 +115,20 @@ public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements
         return sb.toString();
     }
 
-    public class TwoSideLinkedListIterator<E> implements Iterable<E> {
 
+
+    public class TwoSideLinkedListIterator<E> implements Iterable<E> {
         TwoSideLinkedList<E> data;
-        private int size;
 
         public TwoSideLinkedListIterator() {
             this.data = data;
-            this.size = data.size();
-        }
-
+         }
 
         @Override
         public Iterator<E> iterator() {
             Iterator<E> it = new Iterator<E>() {
 
-                Node<E> current = data.firstElement;
+                Node<E> current;
 
                 @Override
                 public boolean hasNext() {
@@ -139,7 +137,7 @@ public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements
 
                 @Override
                 public E next() {
-                    return getValue(current.next);
+                    return current.next.item;
                 }
 
                 @Override
@@ -151,3 +149,41 @@ public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements
         }
     }
 }
+
+//Вот Вам реализация по первой ссылке в гугле:
+//import java.util.Iterator;
+//
+//public class SOList<Type> implements Iterable<Type> {
+//
+//    private Type[] arrayList;
+//    private int currentSize;
+//
+//    public SOList(Type[] newArray) {
+//        this.arrayList = newArray;
+//        this.currentSize = arrayList.length;
+//    }
+//
+//    @Override
+//    public Iterator<Type> iterator() {
+//        Iterator<Type> it = new Iterator<Type>() {
+//
+//            private int currentIndex = 0;
+//
+//            @Override
+//            public boolean hasNext() {
+//                return currentIndex < currentSize && arrayList[currentIndex] != null;
+//            }
+//
+//            @Override
+//            public Type next() {
+//                return arrayList[currentIndex++];
+//            }
+//
+//            @Override
+//            public void remove() {
+//                throw new UnsupportedOperationException();
+//            }
+//        };
+//        return it;
+//    }
+//}
