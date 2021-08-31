@@ -3,7 +3,7 @@ package hw4;
 
 import java.util.Iterator;
 
-public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements TwoSideLinkedList<E> {
+public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements TwoSideLinkedList<E>  {
 
     protected Node<E> lastElement;
 
@@ -19,7 +19,7 @@ public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements
     @Override
     public void insertLast(E value) {
         Node<E> newNode = new Node<>(value, null);
-
+        Node<E> tempNonde = lastElement;
         if (isEmpty()) {
             insertFirst(value);
             return;
@@ -27,9 +27,8 @@ public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements
 
         lastElement.next = newNode;
         lastElement = newNode;
+        lastElement.previous=tempNonde;
         size++;
-
-
     }
 
     @Override
@@ -52,13 +51,11 @@ public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements
     public E removeLast() { // для Deque нужен метод. создаем
         if (isEmpty()) {
             return null;
-        } else {
-//            lastElement.previous.next = null;//не могу обнулить сслылку последнего узла на удаляемый узел
         }
         Node<E> removedNode = lastElement;
         lastElement = removedNode.previous;
 
-        removedNode.previous = null;
+        lastElement.next = null;
         size--;
 
         if (isEmpty()) {
