@@ -2,9 +2,9 @@ package hw5;
 
 
 public class Thing {
-    private final String name; //название вещи
-    private final int weight; //вес
-    private final int price; //стоимость
+    private  String name; //название вещи
+    private  int weight; //вес
+    private  int price; //стоимость
 
     public Thing(String name, int weight, int price) {
         this.name = name;
@@ -23,4 +23,6 @@ public class Thing {
     public int getPrice() {
         return price;
     }
+
+
 }
