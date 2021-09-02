@@ -120,6 +120,7 @@ public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements
     public class TwoSideLinkedListIterator<E> implements Iterable<E> {
         TwoSideLinkedList<E> data;
 
+
         public TwoSideLinkedListIterator() {
             this.data = data;
          }
@@ -128,7 +129,7 @@ public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements
         public Iterator<E> iterator() {
             Iterator<E> it = new Iterator<E>() {
 
-                Node<E> current;
+                Node<E> current = (Node<E>) TwoSideLinkedListImpl.this.firstElement;
 
                 @Override
                 public boolean hasNext() {
