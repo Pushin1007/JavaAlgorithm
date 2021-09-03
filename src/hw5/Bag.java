@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Bag {
 
-    private List<Thing> bestList;
+    private List<Thing> bestList= new ArrayList<>();
     private int bestPrice;
     private final int W = 10;
 
@@ -14,12 +14,13 @@ public class Bag {
 
         List<Thing> things = new ArrayList<>();
 
+
         things.add(new Thing("saw", 7, 50));
         things.add(new Thing("phone", 1, 25));
         things.add(new Thing("book", 2, 15));
         things.add(new Thing("book", 2, 15));
 
-        System.out.println(new Bag().findBestThings(things));
+        display(new Bag().findBestThings(things));
     }
 
 
@@ -75,7 +76,7 @@ public class Bag {
 
     }
 
-    public void toString(List<Thing> things) {
+    public static void display(List<Thing> things) {
         for (Thing thing : things) {
             System.out.println(thing.getName());
         }
