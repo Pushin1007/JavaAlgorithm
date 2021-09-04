@@ -20,7 +20,7 @@ public class Bag {
         things.add(new Thing("book", 2, 15));
         things.add(new Thing("laptop", 5, 15));
 
-//        display(things);
+        display(things);
 
         display(new Bag().findBestThings(things));
     }
@@ -58,7 +58,7 @@ public class Bag {
 
 
     private List<Thing> findBestThings(List<Thing> things) {
-//        bestList.clear();
+        bestList.clear();
         findThings(things);
         return bestList;
     }
