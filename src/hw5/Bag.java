@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Bag {
 
-    private List<Thing> bestList= new ArrayList<>();
+    private List<Thing> bestList = new ArrayList<>();
     private int bestPrice;
     private final int W = 10;
 
