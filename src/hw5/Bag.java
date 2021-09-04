@@ -17,9 +17,11 @@ public class Bag {
         things.add(new Thing("saw", 7, 50));
         things.add(new Thing("phone", 1, 25));
         things.add(new Thing("book", 2, 15));
-        things.add(new Thing("book", 2, 15));
+        things.add(new Thing("laptop", 5, 15));
 
-        System.out.println(new Bag().findBestThings(things));
+//        display(things);
+
+        display(new Bag().findBestThings(things));
     }
 
 
@@ -55,7 +57,7 @@ public class Bag {
 
 
     private List<Thing> findBestThings(List<Thing> things) {
-        bestList.clear();
+//        bestList.clear();
         findThings(things);
         return bestList;
     }
@@ -75,7 +77,7 @@ public class Bag {
 
     }
 
-    public void toString(List<Thing> things) {
+    public static void display(List<Thing> things) {
         for (Thing thing : things) {
             System.out.println(thing.getName());
         }

@@ -3,7 +3,7 @@ package hw4;
 
 import java.util.Iterator;
 
-public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements TwoSideLinkedList<E>  {
+public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements TwoSideLinkedList<E>, Iterable<E> {
 
     protected Node<E> lastElement;
 
@@ -27,7 +27,7 @@ public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements
 
         lastElement.next = newNode;
         lastElement = newNode;
-        lastElement.previous=tempNonde;
+        lastElement.previous = tempNonde;
         size++;
     }
 
@@ -115,38 +115,58 @@ public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements
         return sb.toString();
     }
 
+    @Override
+    public Iterator<E> iterator() {
+        return new TwoSideLinkedListIterator();
+    }
 
 
-    public class TwoSideLinkedListIterator<E> implements Iterable<E> {
-        TwoSideLinkedList<E> data;
+    private class TwoSideLinkedListIterator<E> implements Iterator<E> {
 
+        private final TwoSideLinkedListImpl<E> data;
+        private Node<E> current;
+        private Node<E> previous;
 
         public TwoSideLinkedListIterator() {
-            this.data = data;
-         }
+            this.data = (TwoSideLinkedListImpl<E>) TwoSideLinkedListImpl.this;
+            reset();
+        }
+
 
         @Override
-        public Iterator<E> iterator() {
-            Iterator<E> it = new Iterator<E>() {
+        public boolean hasNext() {
+            return current != null;
+        }
 
-                Node<E> current = (Node<E>) TwoSideLinkedListImpl.this.firstElement;
+        @Override
+        public E next() {
+//            if (!hasNext()) {
+//                throw new NoSuchElementException();
+//            }
+            E nextValue = current.item;
+            previous = current;
+            current = current.next;
+            return nextValue;
+        }
 
-                @Override
-                public boolean hasNext() {
-                    return current.next!= null;
+        @Override
+        public void remove() {
+            if (previous == null) {
+                data.firstElement = current.next;
+                reset();
+            } else {
+                previous.next = current.next;
+                if (!hasNext()) {
+                    reset();
+                } else {
+                    current = current.next;
                 }
+            }
+        }
 
-                @Override
-                public E next() {
-                    return current.next.item;
-                }
-
-                @Override
-                public void remove() {
-                    throw new UnsupportedOperationException();
-                }
-            };
-            return it;
+        public void reset() {
+            current = data.firstElement;
+            previous = null;
         }
     }
 }

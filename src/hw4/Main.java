@@ -28,7 +28,7 @@ public class Main {
 
         //ДОЛЖНО РАБОТАТЬ! Iterable - LinkedListIterator impl Iterator
 
-//       for (Integer value :dequeList) {
+//       for (Integer value : dequeList) { //не рабоает!!!! Надо разбираться
 //            System.out.println("value: " + value);
 //
 //    }
