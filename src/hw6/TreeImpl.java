@@ -7,17 +7,26 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
 
     private Node<E> root;
     private int size;
+    private int maxLevels;
 
+    public TreeImpl(int maxLevels) {
+        this.maxLevels = maxLevels;
+    }
 
     private class NodeAndParent {
         private Node<E> current;
         private Node<E> parent;
+        private int level;
 
-        public NodeAndParent(Node<E> current, Node<E> parent) {
+        public NodeAndParent(Node<E> current, Node<E> parent, int level) {
             this.current = current;
             this.parent = parent;
+            this.level = level;
         }
 
+        public int getLevel() {
+            return level;
+        }
     }
 
     @Override
@@ -29,10 +38,11 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
     private NodeAndParent doFind(E value) {
         Node<E> current = root;
         Node<E> parent = null;
+        int level = 1;
 
         while (current != null) {
             if (current.getValue().equals(value)) {
-                return new NodeAndParent(current, parent);
+                return new NodeAndParent(current, parent, level);
             }
 
             parent = current;
@@ -41,9 +51,9 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
             } else {
                 current = current.getRightChild();
             }
-            //l++
+            ++level;
         }
-        return new NodeAndParent(null, parent);
+        return new NodeAndParent(null, parent, level);
     }
 
     @Override
@@ -57,7 +67,7 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
             return false;
         }
 
-        //if (nAP.level > maxLevels) return false;
+        if (nodeAndParent.level > maxLevels) return false;
         Node<E> parent = nodeAndParent.parent;
 
         if (parent == null) {
@@ -218,6 +228,7 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
 //        System.out.println();
     }
 
+
     private void postOrder(Node<E> current) { // обратный порядок
         if (current == null) {
             return;
@@ -247,5 +258,19 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
         preOrder(current.getLeftChild());
         preOrder(current.getRightChild());
     }
+
+
+    public static boolean isBalanced(Node node) {
+
+        return (node == null) ||
+                isBalanced(node.getLeftChild()) &&
+                        isBalanced(node.getRightChild()) &&
+                        Math.abs(height(node.getLeftChild()) - height(node.getRightChild())) <= 1;
+    }
+
+    private static int height(Node node) {
+        return node == null ? 0 : 1 + Math.max(height(node.getLeftChild()), height(node.getRightChild()));
+    }
+
 }
 

@@ -32,47 +32,24 @@ return node == null ? 0 : 1 + Math.max(height(node.leftChild), height(node.right
 }
  */
 
+import java.util.Random;
+
 public class Main {
+    static Random random = new Random();
+
     public static void main(String[] args) {
 
-        Tree<Integer> tree = new TreeImpl<>();
 
-        tree.add(60);
-        tree.add(50);
-//        tree.add(66);
-        tree.add(40);
-        tree.add(55);
-        tree.add(70);
-        tree.add(31);
-        tree.add(45);
-        tree.add(42);
-        tree.add(43);
-        tree.add(69);
-        tree.add(67);
-        tree.add(68);
-        tree.add(81);
+        for (int i = 0; i < 20; i++) {
+            Tree<Integer> tree = new TreeImpl<>(4);
 
-        System.out.println("Find 70: " + tree.contains(70));
-        System.out.println("Find 700: " + tree.contains(700));
+            while (tree.add(random.nextInt(51) - 25)) {
+            }
+            tree.display();
 
-//        tree.traverse(Tree.TraversMode.IN_ORDER);
-//        tree.traverse(Tree.TraversMode.PRE_ORDER);
-//        tree.traverse(Tree.TraversMode.POST_ORDER);
-
-      tree.display();
-/*
-//        tree.remove(43);
-//        tree.remove(67);
-//        tree.remove(45);
-//        tree.remove(66);
-//
-//        tree.remove(40);
-        tree.remove(60);
-
-        tree.display();*/
-
-
+        }
 
     }
+
 }
 
