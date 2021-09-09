@@ -1,7 +1,8 @@
 package hw7;
+
 import java.util.Objects;
 
-public class Vertex {
+public class City {
     private final String label;
     private boolean visited;
 
@@ -13,7 +14,7 @@ public class Vertex {
         this.visited = visited;
     }
 
-    public Vertex(String label) {
+    public City(String label) {
         this.label = label;
     }
 
@@ -29,8 +30,8 @@ public class Vertex {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Vertex vertex = (Vertex) o;
-        return Objects.equals(label, vertex.label);
+        City city = (City) o;
+        return Objects.equals(label, city.label);
     }
 
     @Override
@@ -40,6 +41,6 @@ public class Vertex {
 
     @Override
     public String toString() {
-        return "Vertex{ " + label + " }";
+        return "Город { " + label + " }";
     }
 }

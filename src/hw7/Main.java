@@ -3,62 +3,37 @@ package hw7;
 public class Main {
 
     public static void main(String[] args) {
-//        testGraph();
-//        testDfs();
-        testBfs();
-    }
 
-    private static void testGraph() {
-        Graph graph = new GraphImpl(4);
-        graph.addVertex("A");
-        graph.addVertex("B");
-        graph.addVertex("C");
-        graph.addVertex("D");
+        GraphImpl cities = new GraphImpl(10);
 
-        graph.addEdge("A", "B", "C");
-        graph.addEdge("B", "C", "D");
-        graph.addEdge("C", "A", "B", "D");
-        graph.addEdge("D", "B", "C");
+        cities.addVertex("Москва");
+        cities.addVertex("Тула");
+        cities.addVertex("Липецк");
+        cities.addVertex("Рязань");
+        cities.addVertex("Тамбов");
+        cities.addVertex("Саратов");
+        cities.addVertex("Воронеж");
+        cities.addVertex("Калуга");
+        cities.addVertex("Орел");
+        cities.addVertex("Курск");
 
-        System.out.println("Size of graph is " + graph.getSize());
-        graph.display();
-    }
+        cities.addEdge("Москва", "Тула", 300);
+        cities.addEdge("Москва", "Рязань", 500);
+        cities.addEdge("Москва", "Калуга", 700);
+        cities.addEdge("Тула", "Липецк", 300);
+        cities.addEdge("Липецк", "Воронеж", 300);
+        cities.addEdge("Рязань", "Тамбов", 300);
+        cities.addEdge("Тамбов", "Саратов", 50);
+        cities.addEdge("Саратов", "Воронеж", 80);
+        cities.addEdge("Калуга", "Орел", 100);
+        cities.addEdge("Орел", "Курск", 50);
+        cities.addEdge("Курск", "Воронеж", 70);
 
-    private static void testDfs() {
-        Graph graph = new GraphImpl(7);
-        graph.addVertex("A");
-        graph.addVertex("B");
-        graph.addVertex("C");
-        graph.addVertex("D");
-        graph.addVertex("E");
-        graph.addVertex("F");
-        graph.addVertex("G");
+//        System.out.println("Всего городов " + cities.getSize());
+//        cities.display();
+//        cities.dfs("Москва");
+        cities.findShortPathViaBfs("Москва", "Воронеж");
 
-        graph.addEdge("A", "B", "C", "D");
-        graph.addEdge("B", "E");
-        graph.addEdge("D", "F");
-        graph.addEdge("F", "G");
 
-        graph.dfs("A");
-    }
-
-    private static void testBfs() {
-        Graph graph = new GraphImpl(8);
-        graph.addVertex("A");
-        graph.addVertex("B");
-        graph.addVertex("C");
-        graph.addVertex("D");
-        graph.addVertex("E");
-        graph.addVertex("F");
-        graph.addVertex("G");
-        graph.addVertex("H");
-
-        graph.addEdge("A", "B", "C", "D");
-        graph.addEdge("B", "E");
-        graph.addEdge("E", "H");
-        graph.addEdge("C", "F");
-        graph.addEdge("D", "G");
-
-        graph.bfs("A");
     }
 }
