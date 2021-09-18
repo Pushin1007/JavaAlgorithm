@@ -30,7 +30,7 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
             return next;
         }
 
-        public void setNext(Item <K, V> next) {
+        public void setNext(Item<K, V> next) {
             this.next = next;
         }
 
@@ -66,7 +66,7 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
         if (data[index] == null) {
             data[index] = new Item<>(key, value);
         } else {
-            Item <K, V>item = data[index];
+            Item<K, V> item = data[index];
             while (item.getNext() != null && item.getKey() != key) {
                 item = item.getNext();
             }
@@ -75,9 +75,8 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
             } else {
                 item.setNext(new Item<>(key, value));
             }
-            size++;
-
         }
+        size++;
         return true;
     }
 
@@ -145,29 +144,20 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
     @Override
     public void display() {
         System.out.println("---------------");
+
         for (int i = 0; i < data.length; i++) {
-            System.out.printf("%d = [%s]%n", i, data[i]);
+
+            if (data[i] != null) {
+                Item<K, V> item = data[i];
+                do {
+                    System.out.print(item.getValue() + "   ");
+                    item = item.getNext();
+                } while (item != null);
+            }
+            System.out.println();
         }
         System.out.println("---------------");
     }
-
-    //    public String print() {
-//        final StringBuilder description = new StringBuilder("Hash table: [ ");
-//        for (int i = 0; i < capacity; i++) {
-//            description.append("{  ");
-//            if (data[i] != null) {
-//                Item item = data[i];
-//                do {
-//                    description.append(String.format("%d  ", item.getValue()));
-//                    item = entry.getNext();
-//                } while (item != null);
-//            }
-//            description.append("} ");
-//        }
-//        description.append(']');
-//        return description.toString();
-//    }
-
 
 }
 
