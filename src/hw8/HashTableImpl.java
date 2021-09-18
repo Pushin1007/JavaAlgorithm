@@ -1,0 +1,233 @@
+package hw8;
+
+public class HashTableImpl<K, V> implements HashTable<K, V> {
+
+    static class Item<K, V> {
+
+        private final K key;
+        private V value;
+        private Item next;
+
+        public Item(K key, V value) {
+            this.key = key;
+            this.value = value;
+            this.next = null;
+        }
+
+        public K getKey() {
+            return key;
+        }
+
+        public V getValue() {
+            return value;
+        }
+
+        public void setValue(V value) {
+            this.value = value;
+        }
+
+        public Item getNext() {
+            return next;
+        }
+
+        public void setNext(Item next) {
+            this.next = next;
+        }
+
+        public String toString() {
+            return "Item{" + "key=" + key + ", value=" + value + '}';
+        }
+    }
+
+
+    private final Item<K, V>[] data;
+
+    private final Item<K, V> emptyItem;
+
+    private int size;
+
+    public HashTableImpl(int initialCapacity) {
+        this.data = new Item[initialCapacity * 2];
+        emptyItem = new Item<>(null, null);
+    }
+
+    private int hashFunc(K key) {
+        return key.hashCode() % data.length;
+    }
+
+    @Override
+    public boolean put(K key, V value) {
+        if (size() == data.length) {
+            return false;
+        }
+
+        int index = hashFunc(key);
+
+        if (data[index] == null) {
+            data[index] = new Item<>(key, value);
+        } else {
+            Item item = data[index];
+            while (item.getNext() != null && item.getKey() != key) {
+                item = item.getNext();
+            }
+            if (item.getKey() == key) {
+                item.setValue(value);
+            } else {
+                item.setNext(new Item<>(key, value));
+            }
+            size++;
+
+        }
+        return true;
+    }
+
+    private boolean isKeysEquals(Item<K, V> item, K key) {
+        if (item == emptyItem) {
+            return false;
+        }
+        return item.getKey() == null ? key == null : item.getKey().equals(key);
+    }
+
+    private int indexOf(K key) {
+        int index = hashFunc(key);
+
+        int count = 0;
+        while (count < data.length) {
+            Item<K, V> item = data[index];
+            if (item == null) {
+                break;
+            } else if (isKeysEquals(item, key)) {
+                return index;
+            }
+
+            count++;
+            index += getStep(key);
+            index %= data.length;
+        }
+
+        return -1;
+    }
+
+    @Override
+    public V get(K key) {
+        int index = indexOf(key);
+        return index == -1 ? null : data[index].getValue();
+    }
+
+    @Override
+    public V remove(K key) {
+        int index = indexOf(key);
+        if (data[index] != null) {
+            Item prevItem = null;
+            Item item = data[index];
+            while (item.getNext() != null && item.getKey() != key) {
+                prevItem = item;
+                item = item.getNext();
+            }
+            if (item.getKey() == key) {
+                if (prevItem == null) {
+                    data[index] = item.getNext();
+                } else {
+                    prevItem.setNext(item.getNext());
+                }
+            }
+        }
+    }
+
+    //    @Override
+//    public Integer search(int key) {
+//        final int index = (key % capacity);
+//        if (data[index] == null)
+//            return null;
+//        else {
+//            Item item = data[index];
+//            while (item != null && item.getKey() != key) {
+//                item = item.getNext();
+//            }
+//            if (item == null) {
+//                return null;
+//            } else {
+//                return item.getValue();
+//            }
+//        }
+//    }
+//
+
+
+//        if (index == -1) {
+//            return null;
+//        }
+//
+//        Item<K, V> tempItem = data[index];
+//        data[index] = emptyItem;
+//        return tempItem.getValue();
+//    }
+
+
+    //    @Override
+//    public void delete(int key) {
+//        final int index = (key % capacity);
+//        if (data[index] != null) {
+//            Item prevItem = null;
+//            Item item = data[index];
+//            while (item.getNext() != null && item.getKey() != key) {
+//                prevItem = entry;
+//                item = item.getNext();
+//            }
+//            if (item.getKey() == key) {
+//                if (prevItem == null) {
+//                    data[index] = item.getNext();
+//                } else {
+//                    prevItem.setNext(item.getNext());
+//                }
+//            }
+//        }
+//    }
+
+
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size != 0;
+    }
+
+    @Override
+    public void display() {
+        System.out.println("---------------");
+        for (int i = 0; i < data.length; i++) {
+            System.out.printf("%d = [%s]%n", i, data[i]);
+        }
+        System.out.println("---------------");
+    }
+}
+
+
+
+
+//
+
+//
+//    @Override
+//    public String print() {
+//        final StringBuilder description = new StringBuilder("Hash table: [ ");
+//        for (int i = 0; i < capacity; i++) {
+//            description.append("{  ");
+//            if (data[i] != null) {
+//                Item item = data[i];
+//                do {
+//                    description.append(String.format("%d  ", item.getValue()));
+//                    item = entry.getNext();
+//                } while (item != null);
+//            }
+//            description.append("} ");
+//        }
+//        description.append(']');
+//        return description.toString();
+//    }
+//
+//}
