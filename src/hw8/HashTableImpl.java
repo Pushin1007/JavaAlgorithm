@@ -6,7 +6,7 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
 
         private final K key;
         private V value;
-        private Item next;
+        private Item<K, V> next;
 
         public Item(K key, V value) {
             this.key = key;
@@ -26,11 +26,11 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
             this.value = value;
         }
 
-        public Item getNext() {
+        public Item<K, V> getNext() {
             return next;
         }
 
-        public void setNext(Item next) {
+        public void setNext(Item <K, V> next) {
             this.next = next;
         }
 
@@ -66,7 +66,7 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
         if (data[index] == null) {
             data[index] = new Item<>(key, value);
         } else {
-            Item item = data[index];
+            Item <K, V>item = data[index];
             while (item.getNext() != null && item.getKey() != key) {
                 item = item.getNext();
             }
@@ -88,38 +88,33 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
         return item.getKey() == null ? key == null : item.getKey().equals(key);
     }
 
-    private int indexOf(K key) {
-        int index = hashFunc(key);
-
-        int count = 0;
-        while (count < data.length) {
-            Item<K, V> item = data[index];
-            if (item == null) {
-                break;
-            } else if (isKeysEquals(item, key)) {
-                return index;
-            }
-
-            count++;
-            index += getStep(key);
-            index %= data.length;
-        }
-
-        return -1;
-    }
-
     @Override
     public V get(K key) {
-        int index = indexOf(key);
-        return index == -1 ? null : data[index].getValue();
+        int index = hashFunc(key);
+        if (data[index] == null)
+            return null;
+        else {
+            Item<K, V> item = data[index];
+            while (item != null && item.getKey() != key) {
+                item = item.getNext();
+            }
+            if (item == null) {
+                return null;
+            } else {
+                return item.getValue();
+            }
+        }
     }
+
 
     @Override
     public V remove(K key) {
-        int index = indexOf(key);
+        int index = hashFunc(key);
+
         if (data[index] != null) {
-            Item prevItem = null;
-            Item item = data[index];
+            Item<K, V> prevItem = null;
+            Item<K, V> item = data[index];
+
             while (item.getNext() != null && item.getKey() != key) {
                 prevItem = item;
                 item = item.getNext();
@@ -129,61 +124,12 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
                     data[index] = item.getNext();
                 } else {
                     prevItem.setNext(item.getNext());
+                    return item.getValue();
                 }
             }
         }
+        return null;
     }
-
-    //    @Override
-//    public Integer search(int key) {
-//        final int index = (key % capacity);
-//        if (data[index] == null)
-//            return null;
-//        else {
-//            Item item = data[index];
-//            while (item != null && item.getKey() != key) {
-//                item = item.getNext();
-//            }
-//            if (item == null) {
-//                return null;
-//            } else {
-//                return item.getValue();
-//            }
-//        }
-//    }
-//
-
-
-//        if (index == -1) {
-//            return null;
-//        }
-//
-//        Item<K, V> tempItem = data[index];
-//        data[index] = emptyItem;
-//        return tempItem.getValue();
-//    }
-
-
-    //    @Override
-//    public void delete(int key) {
-//        final int index = (key % capacity);
-//        if (data[index] != null) {
-//            Item prevItem = null;
-//            Item item = data[index];
-//            while (item.getNext() != null && item.getKey() != key) {
-//                prevItem = entry;
-//                item = item.getNext();
-//            }
-//            if (item.getKey() == key) {
-//                if (prevItem == null) {
-//                    data[index] = item.getNext();
-//                } else {
-//                    prevItem.setNext(item.getNext());
-//                }
-//            }
-//        }
-//    }
-
 
 
     @Override
@@ -204,16 +150,8 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
         }
         System.out.println("---------------");
     }
-}
 
-
-
-
-//
-
-//
-//    @Override
-//    public String print() {
+    //    public String print() {
 //        final StringBuilder description = new StringBuilder("Hash table: [ ");
 //        for (int i = 0; i < capacity; i++) {
 //            description.append("{  ");
@@ -229,5 +167,8 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
 //        description.append(']');
 //        return description.toString();
 //    }
-//
-//}
+
+
+}
+
+
