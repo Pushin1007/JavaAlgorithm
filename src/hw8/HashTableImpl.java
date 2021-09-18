@@ -97,11 +97,7 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
             while (item != null && item.getKey() != key) {
                 item = item.getNext();
             }
-            if (item == null) {
-                return null;
-            } else {
-                return item.getValue();
-            }
+            return item.getValue();
         }
     }
 
@@ -123,6 +119,7 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
                     data[index] = item.getNext();
                 } else {
                     prevItem.setNext(item.getNext());
+                    size--;
                     return item.getValue();
                 }
             }
@@ -146,15 +143,17 @@ public class HashTableImpl<K, V> implements HashTable<K, V> {
         System.out.println("---------------");
 
         for (int i = 0; i < data.length; i++) {
-
-            if (data[i] != null) {
+            System.out.print(i + " = ");
+                  if (data[i] != null) {
                 Item<K, V> item = data[i];
+
                 do {
-                    System.out.print(item.getValue() + "   ");
+                    System.out.print( "["+ item.getValue() + "] ");
                     item = item.getNext();
                 } while (item != null);
             }
             System.out.println();
+
         }
         System.out.println("---------------");
     }
